@@ -444,17 +444,19 @@ int check_line(line l) {
 			}
 		}
 		if (n_mistakes > 0) {
-			printf("This line was incorrect! You need to get it right three times in a row now.\n");
+			printf("\nThis line was incorrect! You need to get it right three times in a row now.\n");
 			n_correct = 0;
 			n_incorrect++;
 		} else {
 			n_correct++;
 			if (n_incorrect == 0) {
+				printf("\n This line perfect on the first try!");
 				break;
 			}
 		}
 		printf("\n\n");
 	}
+	printf("Completed this line.\n");
 	printf("\n\n");
 	return n_incorrect;
 }
@@ -482,12 +484,13 @@ int do_exercise(exercise e) {
 		create_line(&l, e);
 		int n_incorrect = check_line(l);
 		if (n_incorrect > 0) {
-			printf("This line was imperfect. You need to get it three lines correct in a row now.\n");
+			printf("\nYou made some mistakes with this line. You need to get it three lines correct in a row now.\n");
 			n_imperfect_lines++;
 			n_perfect_lines = 0;
 		} else {
 			n_perfect_lines++;
 			if (n_imperfect_lines == 0) {
+				printf("\nYou completed this exercise perfectly on the first try!\n");
 				break;
 			}
 		}
@@ -505,7 +508,7 @@ void train_exercise(exercise e) {
 		while (n_perfect_exercises < 3) {
 			int n_imperfect_lines = do_exercise(e);
 			if (n_imperfect_lines > 0) {
-				printf("This exercise was imperfect. You need to get it three times perfect in a row now.\n");
+				printf("\nThis exercise was imperfect. You need to get three perfect lines in a row now.\n");
 				n_perfect_exercises = 0;
 				n_imperfect_exercises++;
 			} else {
