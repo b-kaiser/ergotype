@@ -1,8 +1,8 @@
 CFLAGS+= -g
 
-homerows:
+ergotype:
 
 clean:
-	rm -f homerows homerows.o
+	rm -f ergotype ergotype.o
 
 PHONY: clean
