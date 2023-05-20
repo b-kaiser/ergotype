@@ -16,24 +16,8 @@
 #define GREEN "\x1b[32m"
 #define NORMAL "\x1b[0m"
 
-
-typedef enum { left, right } side;
-typedef enum { numbers, upper, middle, lower } altitude;
-typedef unsigned int latitude; // with 0 being the outermost possible
-
-typedef struct {
-  char index;
-  char middle;
-  char ring;
-  char pinky;
-} charrow;
-
-typedef struct {
-  side hand;
-  altitude height;
-  latitude position;
-  charrow chars;
-} homerow;
+#include "homerows.h"
+#include "exercise.h"
 
 charrow chartorow(char *chars) {
   charrow r;
@@ -43,27 +27,6 @@ charrow chartorow(char *chars) {
   r.pinky = chars[3];
   return r;
 }
-
-homerow rows[] = {
-    { left, upper, 0, {'y','u','i','o'},}, 
-    { left, upper, 1, {'u','i','o','p'},}, 
-    { left, upper, 2, {'i','o','p','['},}, 
-    { left, upper, 3, {'o','p','[',']'},}, 
-    { left, upper, 4, {'p','[',']','\\'},},
-
-    { left, middle, 0, {'h', 'j' , 'k', 'l'},}, 
-    { left, middle, 1, {'j', 'k' , 'l', ';'},}, 
-    { left, middle, 2, {'k', 'l' , ';', '\''},},
-    
-    { left, numbers, 0, {'6','7','8','9'},},
-    { left, numbers, 1, {'7','8','9','0'},},
-    { left, numbers, 2, {'8','9','0','-'},},
-    { left, numbers, 3, {'9','0','-','='},},
-
-    { left, lower, 0, {'b','n','m',','},},
-    { left, lower, 1, {'n','m',',','.'},},
-    { left, lower, 2, {'m',',','.','/'},},
-};
 
 char get_random_char(homerow * h) {
 	int r = rand() % 4;
@@ -232,12 +195,6 @@ typedef struct {
 } line;
 
 
-typedef struct {
-	homerow * rows;
-	int n_rows;
-	bool use_only_one_row;
-} exercise;
-
 void create_random_word(char * word, int n_chars, exercise e) {
 	bool use_only_one_row;
 	if (e.use_only_one_row) {
@@ -255,121 +212,6 @@ void create_random_word(char * word, int n_chars, exercise e) {
 		word[i] = c;
 	}
 }
-
-homerow left_ex_01_rows[] = {
-	{ left, middle, 0, {'h', 'j' , 'k', 'l'},}, 
-};
-
-homerow left_ex_02_rows[] = {
-    { left, upper, 0, {'y','u','i','o'},}, 
-};
-
-homerow left_ex_03_rows[] = {
-    { left, middle, 0, {'h', 'j' , 'k', 'l'},}, 
-    { left, upper, 0, {'y','u','i','o'},}, 
-};
-
-homerow left_ex_04_rows[] = {
-    { left, lower, 0, {'b','n','m',','},},
-};
-
-homerow left_ex_05a_rows[] = {
-    { left, lower, 0, {'b','n','m',','},},
-    { left, middle, 0, {'h', 'j' , 'k', 'l'},}, 
-};
-
-homerow left_ex_05b_rows[] = {
-    { left, lower, 0, {'b','n','m',','},},
-    { left, upper, 0, {'y','u','i','o'},}, 
-};
-
-homerow left_ex_06_rows[] = {
-    { left, upper, 0, {'y','u','i','o'},}, 
-    { left, lower, 0, {'b','n','m',','},},
-    { left, middle, 0, {'h', 'j' , 'k', 'l'},}, 
-};
-
-homerow left_ex_07_rows[] = {
-    { left, numbers, 0, {'6','7','8','9'},},
-};
-
-homerow left_ex_08_rows[] = {
-    { left, upper, 0, {'y','u','i','o'},}, 
-    { left, numbers, 0, {'6','7','8','9'},},
-};
-
-homerow left_ex_09_rows[] = {
-    { left, upper, 0, {'y','u','i','o'},}, 
-    { left, numbers, 0, {'6','7','8','9'},},
-    { left, middle, 0, {'h', 'j' , 'k', 'l'},}, 
-};
-
-homerow left_ex_10_rows[] = {
-    { left, upper, 0, {'y','u','i','o'},}, 
-    { left, numbers, 0, {'6','7','8','9'},},
-    { left, middle, 0, {'h', 'j' , 'k', 'l'},}, 
-    { left, lower, 0, {'b','n','m',','},},
-};
-
-
-exercise left_ex[] = { 
-	{
-		left_ex_01_rows,
-    		1,
-    		true,
-	},
-	{
-		left_ex_02_rows,
-    		1,
-    		true,
-	},
-	{
-		left_ex_03_rows,
-    		2,
-    		true,
-	},
-	{
-		left_ex_04_rows,
-    		1,
-    		true,
-	},
-	{
-		left_ex_05a_rows,
-    		2,
-    		true,
-	},
-	{
-		left_ex_05b_rows,
-    		2,
-    		true,
-	},
-	{
-		left_ex_06_rows,
-    		3,
-    		true,
-	},
-	{
-		left_ex_07_rows,
-    		1,
-    		true,
-	},
-	{
-		left_ex_08_rows,
-    		2,
-    		true,
-	},
-	{
-		left_ex_09_rows,
-    		3,
-    		true,
-	},
-	{
-		left_ex_10_rows,
-    		4,
-    		true,
-	},
-};
-
 
 void create_line(line * l, exercise e) {
 	l->n_chars = 0;
@@ -538,7 +380,7 @@ int main() {
 
   print_introduction();
 
-  for (int i = 0; i < sizeof(left_ex) / sizeof(left_ex[0]) ; i++) {
+  for (int i = 0; i < 10 ; i++) {
     printf("\n\nTraining exercise %d of %lu\n\n", i, sizeof(left_ex) / sizeof(left_ex[0]));	
     train_exercise(left_ex[i]);
   }
