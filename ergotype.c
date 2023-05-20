@@ -18,6 +18,7 @@
 
 #include "homerows.h"
 #include "exercise.h"
+#include "skillset.h"
 
 charrow chartorow(char *chars) {
   charrow r;
@@ -371,6 +372,11 @@ void train_exercise(exercise e) {
 
 }
 
+void train(skillset * s) {
+	exercise e = get_next_exercise(s);
+	train_exercise(e);
+}
+
 int main() {
   // https://stackoverflow.com/questions/1798511/how-to-avoid-pressing-enter-with-getchar-for-reading-a-single-character-only
   srand(time(NULL));
@@ -380,9 +386,10 @@ int main() {
 
   print_introduction();
 
-  for (int i = 0; i < 10 ; i++) {
-    printf("\n\nTraining exercise %d of %lu\n\n", i, sizeof(left_ex) / sizeof(left_ex[0]));	
-    train_exercise(left_ex[i]);
+  skillset s = empty_skillset; 
+  while (true) {
+    add_homerow(&s);
+    train(&s);
   }
 
   printf("Congratulations! You achieved mastery.\n");

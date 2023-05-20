@@ -21,28 +21,6 @@ typedef struct {
 
 extern homerow rows[];
 
-extern homerow left_ex_01_rows[];
-
-extern homerow left_ex_02_rows[];
-
-extern homerow left_ex_03_rows[];
-
-extern homerow left_ex_04_rows[];
-
-extern homerow left_ex_05a_rows[];
-
-extern homerow left_ex_05b_rows[];
-
-extern homerow left_ex_06_rows[];
-
-extern homerow left_ex_07_rows[];
-
-extern homerow left_ex_08_rows[];
-
-extern homerow left_ex_09_rows[];
-
-extern homerow left_ex_10_rows[];
-
 #endif // HOMEROWS_H
 
 
