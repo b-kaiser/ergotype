@@ -21,6 +21,7 @@ typedef struct {
 
 extern homerow rows[];
 
+extern homerow ordered_left_hand_rows[];
 #endif // HOMEROWS_H
 
 

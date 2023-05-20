@@ -343,6 +343,20 @@ int do_exercise(exercise e) {
 }
 
 void train_exercise(exercise e) {
+	if ( true ) {
+		printf("Training the following rows\n\n");
+		for ( int i = 0 ; i < e.n_rows; i++) {
+			homerow h = e.rows[i];
+			printf("Hand: %d Height: %d Position: %d"
+				"Chars: %c %c %c %c\n",
+				h.hand, h.height, h.position,
+				h.chars.index,
+				h.chars.middle,
+				h.chars.ring,
+				h.chars.pinky);
+		}
+	}	
+
 	e.use_only_one_row = true;
 	for (int i = 0; i < 2; i++) {
 		int n_perfect_exercises = 0;
@@ -373,8 +387,11 @@ void train_exercise(exercise e) {
 }
 
 void train(skillset * s) {
-	exercise e = get_next_exercise(s);
-	train_exercise(e);
+	create_new_exercises(s);
+	while ( s->current_new_exercise < s->n_new ) {
+		exercise e = get_next_exercise(s);
+		train_exercise(e);
+	}
 }
 
 int main() {
