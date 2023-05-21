@@ -2,7 +2,7 @@
 #define HOMEROWS_H
 typedef enum { left, right } side;
 typedef enum { numbers, upper, middle, lower } altitude;
-typedef unsigned int latitude; // with 0 being the outermost possible
+typedef unsigned int latitude;
 
 typedef struct {
   char index;
@@ -22,6 +22,7 @@ typedef struct {
 extern homerow rows[];
 
 extern homerow ordered_left_hand_rows[];
+extern homerow ordered_right_hand_rows[];
 #endif // HOMEROWS_H
 
 

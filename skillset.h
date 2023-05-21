@@ -1,9 +1,12 @@
 #ifndef SKILLSET_H
 #define SKILLSET_H
 
+#include <stdbool.h>
+
 #include "homerows.h"
 
 typedef struct {
+	side hand;
 	homerow * rows;
 	int n_rows;
 	exercise * completed_exercises;
@@ -15,10 +18,41 @@ typedef struct {
 
 skillset empty_skillset;
 
-void add_homerow(skillset * s) {
+int get_n_of_positions(skillset * s) {
+	int n_positions = 0;
+	for ( int i = 0 ; i < s->n_rows ; i++ ) {
+		latitude p = s->rows[i].position;
+		int j = 0;
+		for ( ; j < i ; j++) {
+			latitude p_old = s->rows[j].position;
+			if ( p == p_old ) {
+				break;
+			}
+		}
+		if ( j == i ) {
+			n_positions++;
+		}
+	}
+	return n_positions;
+}
+
+bool add_homerow(skillset * s) {
+	int initial_n_of_positions = get_n_of_positions(s);
+
+
 	s->rows = realloc(s->rows, ((s->n_rows)+1)*sizeof(*rows));
-	s->rows[s->n_rows] = ordered_left_hand_rows[s->n_rows];
+	if (s->hand == left) {
+		s->rows[s->n_rows] = ordered_left_hand_rows[s->n_rows];
+	} else {
+		s->rows[s->n_rows] = ordered_right_hand_rows[s->n_rows];
+	}
 	s->n_rows++;
+
+	int new_n_of_positions = get_n_of_positions(s);
+
+	return (new_n_of_positions > initial_n_of_positions);
+
+
 }
 
 void create_latest_new_row_exercise(skillset * s) {

@@ -409,10 +409,31 @@ int main() {
 
   print_introduction();
 
-  skillset s = empty_skillset; 
+  skillset right_hand = empty_skillset;
+  right_hand.hand = right;
+  skillset left_hand = empty_skillset; 
+  left_hand.hand = left;
+  skillset * hands[2] = {&right_hand, &left_hand};
+
+  add_homerow(&right_hand);
+  add_homerow(&left_hand);
   while (true) {
-    add_homerow(&s);
-    train(&s);
+    int random_hand = rand() % 2;
+    int other_hand = 1 - random_hand;
+    skillset * first_hand = hands[random_hand];
+    skillset * second_hand = hands[other_hand];
+
+    bool new_latitude = false;
+    while ( ! new_latitude ) {
+      train(first_hand);
+      new_latitude = add_homerow(first_hand);
+    }
+    new_latitude = false;
+    while ( ! new_latitude ) {
+      train(second_hand);
+      bool new_latitude = add_homerow(second_hand);
+    }
+
   }
 
   printf("Congratulations! You achieved mastery.\n");

@@ -1,6 +1,7 @@
 #include "skillset.h"
 
 empty_skillset = {
+	.hand = 0,
 	.rows = NULL,
 	.n_rows = 0,
 	.completed_exercises = NULL,
