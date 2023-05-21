@@ -1,6 +1,6 @@
-CFLAGS+= -g
+CFLAGS+= -g -Werror
 
-ergotype: homerows.o exercise.o
+ergotype: train.o homerows.o exercise.o skillset.o
 
 clean:
 	rm -f *.o

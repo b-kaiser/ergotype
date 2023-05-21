@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <stdlib.h>
+
 #include "homerows.h"
 
 homerow rows[] = {
@@ -80,6 +83,38 @@ homerow ordered_right_hand_rows[] = {
     { right, upper, 3, {'e','w','q','\t'},}, 
     { right, numbers, 3, {'3','2','1','`'},},
 
-
-
 };
+
+charrow chartorow(char *chars) {
+  charrow r;
+  r.index = chars[0];
+  r.middle = chars[1];
+  r.ring = chars[2];
+  r.pinky = chars[3];
+  return r;
+}
+
+char get_random_char(homerow * h) {
+	int r = rand() % 4;
+	char f;
+	switch (r) {
+		case 0:
+			f = h->chars.index;
+			break;
+		case 1:
+			f = h->chars.middle;
+			break;
+		case 2:
+			f = h->chars.ring;
+			break;
+		case 3:
+			f = h->chars.pinky;
+			break;
+		default:
+			fprintf(stderr,"%s line %d function %s: unexpected finger %d\n",
+					__FILE__, __LINE__, __func__, r);
+			exit(1);
+		}
+
+	return f;	
+}
