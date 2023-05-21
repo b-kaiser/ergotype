@@ -7,107 +7,30 @@
 #include "homerows.h"
 #include "exercise.h"
 #include "skillset.h"
-
-#define RED "\x1b[31m"
-#define GREEN "\x1b[32m"
-#define NORMAL "\x1b[0m"
-
-typedef struct {
-	char * chars;
-	int max_line_length;
-	int max_word_num;
-	int max_word_length;
-	int n_chars;
-} line;
-
-
-void create_random_word(char * word, int n_chars, exercise e) {
-	bool use_only_one_row;
-	if (e.use_only_one_row) {
-		use_only_one_row = true;
-	} else {
-		// Even if we want to train mixed words, roughly every
-		// second word should be from a single row in order to
-		// train multiple fingerings simultaneously.
-		use_only_one_row = (rand() % 2 == 0) ? true : false;
-	}
-	for (int i = 0; i < n_chars; i++) {
-		int j = (i != 0 && use_only_one_row) ?
-			j : rand() % e.n_rows;
-		char c = get_random_char(&e.rows[j]);
-		word[i] = c;
-	}
-}
-
-void create_line(line * l, exercise e) {
-	l->n_chars = 0;
-	for (int j = 0; j < l->max_word_num; j++) {
-		if ( l->max_line_length - l->n_chars <= l->max_word_length) {
-			break;
-		}
-		if ( j != 0) {
-			l->chars[(l->n_chars)++] = ' ';
-		}
-  		char word[l->max_word_length];
-	 	create_random_word(word, l->max_word_length, e); 
-  		for (int i = 0; i < l->max_word_length; i++ ) {
-			l->chars[(l->n_chars)++]=word[i];
-		}
-	}
-}
+#include "input.h"
+#include "word.h"
+#include "line.h"
+#include "output.h"
 
 int check_line(line l) {
 	int n_correct = 0;
 	int n_incorrect = 0;
 	while (n_correct < 3) {
 		int n_mistakes = 0;
-		for (int i = 0; i < l.n_chars; i++) {
-			printf("%c", l.chars[i]);
-		}
-		printf("\n");
+		print_line(l);
 	  	for (int i = 0; i < l.n_chars; i++ ) {
 			if (l.chars[i] == ' ') {
-				printf(" ");
+				print_whitespace();
 				continue;
 			}
 			char d;
-			while (true) {
-				d = getchar();
-				if ( d == ' ' ) {
-				  d = getchar();
-				  if ( d == ' ' ) {
-				    d = getchar();
-				    if ( d == ' ' ) {
-				      d = getchar(); 
-				      if ( d == ' ' ) {
-				        d = getchar();
-					if ( d == 'n' ) {
-				          printf("Skipping\n");
-					  return 0;
-					}
-				      }
-				    }
-				  }
-			        }
-				if (isgraph(d)) {
-
-					break;
-				}
+			if ( obtain_key(&d) != 0 ) {
+				return 0;
 			}
 			if (d == l.chars[i]) {
-				printf("\33[1A");
-				printf( GREEN "%c" NORMAL, d);
-				printf("\33[1B");
-				printf("\33[1D");
-				printf(" ");
+				print_correct(d);
 			} else {
-				printf("\33[1A");
-				printf( RED "%c" NORMAL, l.chars[i]);
-				printf("\33[1B");
-				printf("\33[1D");
-				
-				printf("%c", d);
-	
+				print_incorrect(d,l.chars[i]);
 				n_mistakes++;
 			}
 		}
