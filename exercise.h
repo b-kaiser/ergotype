@@ -11,4 +11,6 @@ typedef struct {
 	bool use_only_one_row;
 } exercise;
 
+bool is_same_height_exercise(exercise e);
+
 #endif // EXERCISE_H

@@ -47,6 +47,36 @@ void move_new_exercises_to_completed(skillset *s) {
 	s->n_completed = new_n_completed;
 }
 
+void perlocate(exercise * e, int j, int i) {
+	if ( j <= i ) {
+		abort();
+	}
+
+	exercise tmp = e[j];
+	for ( int k = j; k > i; k--) {
+		e[k] = e[k-1];
+	}
+	e[i] = tmp;
+}
+
+
+void move_same_height_exercises_to_end(exercise *e, int n_e) {
+	for ( int i = 0; i < n_e; i++) {
+		if ( is_same_height_exercise(e[i]) ) {
+			int j = i;
+			for ( ; j < n_e; j++) {
+				if ( ! is_same_height_exercise(e[j]) ) {
+					break;
+				}
+			}
+			if ( j == n_e ) {
+				break;
+			}
+			perlocate(e, j, i);	
+		}
+	}
+}
+
 void create_new_exercises_from_completed(skillset *s) {
 
 	for (int i = 0 ; i < s->n_completed; i++) {
@@ -61,6 +91,8 @@ void create_new_exercises_from_completed(skillset *s) {
 		(e_new->rows)[e_old->n_rows] = s->rows[(s->n_rows)-1];
 		e_new->use_only_one_row = true;
 	}
+
+	move_same_height_exercises_to_end(s->new_exercises, s->n_new);
 
 }
 

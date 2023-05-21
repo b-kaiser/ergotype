@@ -347,13 +347,19 @@ void train_exercise(exercise e) {
 		printf("Training the following rows\n\n");
 		for ( int i = 0 ; i < e.n_rows; i++) {
 			homerow h = e.rows[i];
-			printf("Hand: %d Height: %d Position: %d"
-				"Chars: %c %c %c %c\n",
+			printf("Hand: %d Height: %d Position: %d "
+				"Chars: %c %c %c %c\n\n",
 				h.hand, h.height, h.position,
 				h.chars.index,
 				h.chars.middle,
 				h.chars.ring,
 				h.chars.pinky);
+		}
+		if ( false ) {
+			char d = getchar();
+			if ( d == 's' ) {
+				return;
+			}
 		}
 	}	
 
