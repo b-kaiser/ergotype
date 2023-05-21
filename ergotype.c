@@ -87,9 +87,7 @@ void print_introduction() {
 	" Also, I am open to new ideas. If no agreement can be \n"
 	" made, I am also open to forks of this project. But in \n"
 	" case you fork this project, please stay in touch as \n"
-	" collobaration most likely will benefit everybody.\n",
-	  "ERGOTYPE", "ERGOTYPE", "ERGOTYPE", "ERGOTYPE"
- );
+	" collobaration most likely will benefit everybody.\n");
  getchar();
  while (true) {
  	printf(" Do you want to skip the introduction in the future? (y/n)\n");
@@ -181,7 +179,7 @@ int main() {
     new_latitude = false;
     while ( ! new_latitude ) {
       train(second_hand);
-      bool new_latitude = add_homerow(second_hand);
+      new_latitude = add_homerow(second_hand);
     }
 
   }

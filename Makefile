@@ -1,4 +1,4 @@
-CFLAGS+= -g -Werror
+CFLAGS+= -g -Werror -Werror -Wall -Wextra
 
 ergotype: train.o homerows.o exercise.o skillset.o input.o output.o word.o line.o
 
