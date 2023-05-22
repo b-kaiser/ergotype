@@ -1,11 +1,9 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <signal.h>
 
-#include <termios.h>
-#include <unistd.h>
 #include <time.h>
-#include <stdbool.h>
 
 #include <errno.h>
 
@@ -13,24 +11,24 @@
 #include "skillset.h"
 #include "train.h"
 
+#include "output.h"
+#include "introduction.h"
 
 
-static struct termios oldt, newt;
-
-void init_terminal() {
-
-  tcgetattr( STDIN_FILENO, &oldt);
-  newt = oldt;
-
-  newt.c_lflag &= ~(ICANON | ECHO);
-  tcsetattr( STDIN_FILENO, TCSANOW, &newt);
+static void sig_handler(int _)
+{
+    (void)_;
+    restore_terminal();
+    exit(EXIT_SUCCESS);
 
 }
-
 
 int main() {
   // https://stackoverflow.com/questions/1798511/how-to-avoid-pressing-enter-with-getchar-for-reading-a-single-character-only
   srand(time(NULL));
+  struct sigaction act;
+  act.sa_handler = sig_handler;
+  sigaction(SIGINT, &act, NULL);
 
   init_terminal();
 
@@ -62,8 +60,8 @@ int main() {
 
   }
 
-  printf("Congratulations! You achieved mastery.\n");
-  
-  tcsetattr( STDIN_FILENO, TCSANOW, &oldt);
+  //printf("Congratulations! You achieved mastery.\n");
+ 
+  restore_terminal(); 
   return EXIT_SUCCESS;
 }

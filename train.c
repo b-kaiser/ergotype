@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <ncurses.h>
 #include <ctype.h>
 
 
@@ -15,9 +15,11 @@
 int check_line(line l) {
 	int n_correct = 0;
 	int n_incorrect = 0;
-	while (n_correct < 3) {
+	print_line(l);
+	int penalty = 1; 
+	while (penalty > 0) {
 		int n_mistakes = 0;
-		print_line(l);
+		reprint_line(l);
 	  	for (int i = 0; i < l.n_chars; i++ ) {
 			if (l.chars[i] == ' ') {
 				print_whitespace();
@@ -30,25 +32,34 @@ int check_line(line l) {
 			if (d == l.chars[i]) {
 				print_correct(d);
 			} else {
-				print_incorrect(d,l.chars[i]);
+				if ( penalty < 3 ) {
+					penalty = 3;
+				} else {
+					if (penalty < 9) {
+						penalty++;
+					}
+				}
+				print_incorrect(d,l.chars[i], penalty);
 				n_mistakes++;
 			}
 		}
 		if (n_mistakes > 0) {
-			printf("\nThis line was incorrect! You need to get it right three times in a row now.\n");
 			n_correct = 0;
+			print_lower_penalty(penalty);
 			n_incorrect++;
 		} else {
 			n_correct++;
 			if (n_incorrect == 0) {
-				printf("\n This line perfect on the first try!");
 				break;
+			} else {
+				print_lower_penalty(--penalty);
 			}
 		}
-		printf("\n\n");
+		//printw("\n\n");
 	}
-	printf("Completed this line.\n");
-	printf("\n\n");
+	print_remove_penalty();
+	//printw("Completed this line.\n");
+	//printw("\n\n");
 	return n_incorrect;
 }
 
@@ -60,6 +71,9 @@ int do_exercise(exercise e) {
 
 	int n_perfect_lines = 0;
 	int n_imperfect_lines = 0;
+
+	print_fingering(e);
+
 	while (n_perfect_lines < 3) {
 		char line_chars[max_line_length];
 	
@@ -75,13 +89,13 @@ int do_exercise(exercise e) {
 		create_line(&l, e);
 		int n_incorrect = check_line(l);
 		if (n_incorrect > 0) {
-			printf("\nYou made some mistakes with this line. You need to get it three lines correct in a row now.\n");
+			//printw("\nYou made some mistakes with this line. You need to get it three lines correct in a row now.\n");
 			n_imperfect_lines++;
 			n_perfect_lines = 0;
 		} else {
 			n_perfect_lines++;
 			if (n_imperfect_lines == 0) {
-				printf("\nYou completed this exercise perfectly on the first try!\n");
+				//printw("\nYou completed this exercise perfectly on the first try!\n");
 				break;
 			}
 		}
@@ -92,16 +106,16 @@ int do_exercise(exercise e) {
 
 void train_exercise(exercise e) {
 	if ( true ) {
-		printf("Training the following rows\n\n");
+		//printw("Training the following rows\n\n");
 		for ( int i = 0 ; i < e.n_rows; i++) {
-			homerow h = e.rows[i];
-			printf("Hand: %d Height: %d Position: %d "
-				"Chars: %c %c %c %c\n\n",
-				h.hand, h.height, h.position,
-				h.chars.index,
-				h.chars.middle,
-				h.chars.ring,
-				h.chars.pinky);
+			//homerow h = e.rows[i];
+			//printw("Hand: %d Height: %d Position: %d "
+			//	"Chars: %c %c %c %c\n\n",
+			//	h.hand, h.height, h.position,
+			//	h.chars.index,
+			//	h.chars.middle,
+			//	h.chars.ring,
+			//	h.chars.pinky);
 		}
 		if ( false ) {
 			char d = getchar();
@@ -119,7 +133,6 @@ void train_exercise(exercise e) {
 		while (n_perfect_exercises < 3) {
 			int n_imperfect_lines = do_exercise(e);
 			if (n_imperfect_lines > 0) {
-				printf("\nThis exercise was imperfect. You need to get three perfect lines in a row now.\n");
 				n_perfect_exercises = 0;
 				n_imperfect_exercises++;
 			} else {
@@ -134,7 +147,7 @@ void train_exercise(exercise e) {
 			break;
 		} else {
 			e.use_only_one_row = false; 
-			printf("Now the same training with mixed words.\n");
+			//printw("Now the same training with mixed words.\n");
 		}
 	}
 

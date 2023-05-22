@@ -1,6 +1,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <ctype.h>
+#include <curses.h>
 
 #include "input.h"
 
@@ -17,7 +18,7 @@ int obtain_key(char * c) {
 		      if ( d == ' ' ) {
 		        d = getchar();
 			if ( d == 'n' ) {
-		          printf("Skipping\n");
+		          printw("Skipping\n");
 			  return 1;
 			}
 		      }
