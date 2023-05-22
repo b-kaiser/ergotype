@@ -6,7 +6,7 @@
 void create_line(line * l, exercise e) {
 	l->n_chars = 0;
 	for (int j = 0; j < l->max_word_num; j++) {
-		if ( l->max_line_length - l->n_chars <= l->max_word_length) {
+		if ( l->max_line_length - l->n_chars <= l->max_word_length -1 ) {
 			break;
 		}
 		if ( j != 0) {
@@ -18,4 +18,5 @@ void create_line(line * l, exercise e) {
 			l->chars[(l->n_chars)++]=word[i];
 		}
 	}
+	l->chars[l->n_chars] = '\0';
 }

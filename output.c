@@ -66,6 +66,58 @@ void init_terminal() {
 	 	  right_fingering_width, right_fingering_starty, right_fingering_startx);
 }
 
+line * p_next;
+line * p_middle;
+line * p_last;
+
+void print_register_following_lines(line * next, line * middle, line * last) {
+	p_next = next;
+	p_middle = middle;
+	p_last = last;
+}
+
+void print_following_lines() {
+	int y, x;
+	getyx(main_win, y, x);
+
+	wmove(main_win, 6, 0);
+	wclrtoeol(main_win);
+	wmove(main_win, 7, 0);
+	wclrtoeol(main_win);
+	wmove(main_win, 8, 0);
+	wclrtoeol(main_win);
+	mvwprintw(main_win, 6,0, "%s", p_next->chars);
+	mvwprintw(main_win, 7,0, "%s", p_middle->chars);
+	mvwprintw(main_win, 8,0, "%s", p_last->chars);
+	wmove(main_win, y, x);
+//	wrefresh(main_win);
+}
+
+void print_remove_following_line(line * next, line * middle, int remaining) {
+	wmove(main_win, 6, 0);
+	wclrtoeol(main_win);
+	wmove(main_win, 7, 0);
+	wclrtoeol(main_win);
+	wmove(main_win, 8, 0);
+	wclrtoeol(main_win);
+	switch (remaining) {
+		case 2:
+			mvwprintw(main_win, 7, 0, "%s", middle->chars);
+			__attribute__((fallthrough));
+		case 1:
+			mvwprintw(main_win, 6, 0, "%s", next->chars);
+			__attribute__((fallthrough));
+		case 0:
+			break;
+		default:
+			restore_terminal();
+			abort();
+	}
+
+	wrefresh(main_win);
+
+}
+
 void print_fingering_hand(exercise e, side hand) {
 
 	char index_string[30];
@@ -187,6 +239,7 @@ void print_incorrect(char got, char expected, int penalty) {
 	wattroff(penalty_win,COLOR_PAIR(2));
 	
 	wrefresh(penalty_win);
+	print_following_lines();
 	wrefresh(main_win);
 }
 

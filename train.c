@@ -74,30 +74,85 @@ int do_exercise(exercise e) {
 
 	print_fingering(e);
 
-	while (n_perfect_lines < 3) {
-		char line_chars[max_line_length];
+	char line_chars_01[max_line_length];
+	char line_chars_02[max_line_length];
+	char line_chars_03[max_line_length];
+	char line_chars_04[max_line_length];
 	
-		line l = {
-			line_chars,
-			max_line_length,
-			max_word_num,
-			max_word_length,
-			0
-		};
+	line l_01 = {
+		line_chars_01,
+		max_line_length,
+		max_word_num,
+		max_word_length,
+		0
+	};
 	
+	line l_02 = {
+		line_chars_02,
+		max_line_length,
+		max_word_num,
+		max_word_length,
+		0
+	};
 	
-		create_line(&l, e);
-		int n_incorrect = check_line(l);
+	line l_03 = {
+		line_chars_03,
+		max_line_length,
+		max_word_num,
+		max_word_length,
+		0
+	};
+	
+	line l_04 = {
+		line_chars_04,
+		max_line_length,
+		max_word_num,
+		max_word_length,
+		0
+	};
+
+	line * current = &l_01;
+	line * next = &l_02;
+	line *middle = &l_03;
+	line *last = &l_04;
+	
+	create_line(current, e);
+	create_line(next, e);
+	create_line(middle, e);
+	create_line(last, e);
+	int remaining_lines = 1;
+	while (n_perfect_lines < remaining_lines) {
+		print_register_following_lines(next, middle, last);
+
+		int n_incorrect = check_line(*current);
+		line * tmp = current;
+		current = next;
+		next = middle;
+		middle = last;
+		last = tmp;
+		create_line(last, e);
+
 		if (n_incorrect > 0) {
-			//printw("\nYou made some mistakes with this line. You need to get it three lines correct in a row now.\n");
+			if ( n_imperfect_lines == 0 ) {
+				remaining_lines = 3;
+			}
+			
 			n_imperfect_lines++;
 			n_perfect_lines = 0;
 		} else {
-			n_perfect_lines++;
 			if (n_imperfect_lines == 0) {
-				//printw("\nYou completed this exercise perfectly on the first try!\n");
 				break;
 			}
+			
+			n_perfect_lines++;
+		}
+		if ( n_perfect_lines != remaining_lines ) {
+			int n_pending_lines =
+				remaining_lines - n_perfect_lines -1;
+			print_remove_following_line(
+					next,
+				       	middle,
+					n_pending_lines);
 		}
 	}
 	return n_imperfect_lines;	
@@ -127,21 +182,7 @@ void train_exercise(exercise e) {
 
 	e.use_only_one_row = true;
 	for (int i = 0; i < 2; i++) {
-		int n_perfect_exercises = 0;
-		int n_imperfect_exercises = 0;
-	
-		while (n_perfect_exercises < 3) {
-			int n_imperfect_lines = do_exercise(e);
-			if (n_imperfect_lines > 0) {
-				n_perfect_exercises = 0;
-				n_imperfect_exercises++;
-			} else {
-				n_perfect_exercises++;
-				if (n_imperfect_exercises == 0) {
-					break;
-				}
-			}
-		}
+		do_exercise(e);
 		
 		if (e.n_rows < 2) {
 			break;
