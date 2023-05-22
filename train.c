@@ -16,7 +16,8 @@ int check_line(line l) {
 	int n_correct = 0;
 	int n_incorrect = 0;
 	print_line(l);
-	while (n_correct < 3) {
+	int penalty = 1; 
+	while (penalty > 0) {
 		int n_mistakes = 0;
 		reprint_line(l);
 	  	for (int i = 0; i < l.n_chars; i++ ) {
@@ -31,23 +32,32 @@ int check_line(line l) {
 			if (d == l.chars[i]) {
 				print_correct(d);
 			} else {
-				print_incorrect(d,l.chars[i]);
+				if ( penalty < 3 ) {
+					penalty = 3;
+				} else {
+					if (penalty < 9) {
+						penalty++;
+					}
+				}
+				print_incorrect(d,l.chars[i], penalty);
 				n_mistakes++;
 			}
 		}
 		if (n_mistakes > 0) {
-			//printw("\nThis line was incorrect! You need to get it right three times in a row now.\n");
 			n_correct = 0;
+			print_lower_penalty(penalty);
 			n_incorrect++;
 		} else {
 			n_correct++;
 			if (n_incorrect == 0) {
-				//printw("\n This line perfect on the first try!");
 				break;
+			} else {
+				print_lower_penalty(--penalty);
 			}
 		}
 		//printw("\n\n");
 	}
+	print_remove_penalty();
 	//printw("Completed this line.\n");
 	//printw("\n\n");
 	return n_incorrect;
@@ -61,6 +71,9 @@ int do_exercise(exercise e) {
 
 	int n_perfect_lines = 0;
 	int n_imperfect_lines = 0;
+
+	print_fingering(e);
+
 	while (n_perfect_lines < 3) {
 		char line_chars[max_line_length];
 	

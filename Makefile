@@ -1,4 +1,4 @@
-CFLAGS+= -g -Werror -Werror -Wall -Wextra
+CFLAGS+= -g -Werror -Wall -Wextra
 
 CFLAGS += -lncurses
 
