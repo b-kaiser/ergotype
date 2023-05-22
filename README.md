@@ -2,7 +2,7 @@
 
 A touch typing trainer designed to encourage optimal fingerings. 
 
-## Ideas
+## Foundational Ideas
 
 - Typing accuracy inevitably leads to typing speed. 
 - Optimal fingering depends on the individual key combinations.
