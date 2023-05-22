@@ -10,13 +10,23 @@ A touch typing trainer designed to encourage optimal fingerings.
 - Homerows can easily be reached and typed (small movements of the wrist are helpful).
 - Single hand exercises are useful (not exclusively, of course).
 
-## TODOs:
+## Build and Run
+Depends on (n)curses to build. Please open an issue if it doesn't build on your os/machine.
+
+Currently, needs a terminal capable of colors, but that is supposed to be temporary. 
+
+```
+make 
+./ergotype
+```
+ 
+## TODOs
 
 - Improve exercises and their order.
 - Add exercises with dictionary words.
 - Add both-hands exercises.
 - Add exercises for speed.
-- Make more portable and describe build process.
+- Make more portable and improve build process.
 - Enable different languages and keyboard layouts.
 - Get rid of hard-coded stuff in code.
 - Clean up code.
