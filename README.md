@@ -14,6 +14,7 @@ A touch typing trainer designed to encourage optimal fingerings.
 
 - Improve exercises and their order.
 - Add exercises with dictionary words.
+- Add both-hands exercises.
 - Add exercises for speed.
 - Make more portable and describe build process.
 - Enable different languages and keyboard layouts.
