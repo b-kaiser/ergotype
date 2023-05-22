@@ -33,13 +33,16 @@ void init_terminal() {
   init_pair(1, COLOR_GREEN, COLOR_BLACK);
   init_pair(2, COLOR_RED, COLOR_BLACK);
 
-  int starty = LINES / 4;
-  int startx = COLS / 8;
-  int height = LINES / 4;
-  int width  = (COLS / 8 ) * 6;
-  
-  main_win = newwin(height, width, starty, startx);
+  mvprintw(3, (COLS / 2)-4, "ERGOTYPE");
+  refresh();
 
+  int starty = LINES / 4;
+  int startx = (COLS / 2) - 12;
+  int height = LINES / 4;
+  int width  = COLS / 4;
+ 
+  main_win = newwin(height, width, starty, startx);
+  
   int penalty_width  = 4;
   int penalty_starty = starty;
   int penalty_startx = startx - penalty_width;
@@ -51,7 +54,7 @@ void init_terminal() {
 
   int left_fingering_width  = width / 2;
   int left_fingering_starty = starty + height + 1;
-  int left_fingering_startx = startx;
+  int left_fingering_startx = ((COLS / 8) *2) + 18;
   int left_fingering_height = height;
 
   left_fingering_win = newwin(left_fingering_height,
@@ -59,7 +62,7 @@ void init_terminal() {
 
   int right_fingering_width  = width / 2;
   int right_fingering_starty = starty + height + 1;
-  int right_fingering_startx = startx + (width / 2) + 1;
+  int right_fingering_startx = (COLS / 8 ) * 5;
   int right_fingering_height = height;
 
   right_fingering_win = newwin(right_fingering_height,
@@ -164,11 +167,10 @@ void print_fingering_hand(exercise e, side hand) {
 	wclear(win);
 	if ( n > 0 ) {
 		mvwprintw(win, 0, 0, "%s", hand_string);
-		mvwprintw(win, 3, 0, "suggested fingering:");
-		mvwprintw(win, 4, 0, "index  : %s", index_string);
-		mvwprintw(win, 5, 0, "middle : %s", middle_string);
-		mvwprintw(win, 6, 0, "ring   : %s", ring_string);
-		mvwprintw(win, 7, 0, "pinky  : %s", pinky_string);
+		mvwprintw(win, 3, 0, "index  : %s", index_string);
+		mvwprintw(win, 4, 0, "middle : %s", middle_string);
+		mvwprintw(win, 5, 0, "ring   : %s", ring_string);
+		mvwprintw(win, 6, 0, "pinky  : %s", pinky_string);
 	}
 	wrefresh(win);
 }

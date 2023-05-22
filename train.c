@@ -194,10 +194,15 @@ void train_exercise(exercise e) {
 
 }
 
+int level = 0;
+
 void train(skillset * s) {
 	create_new_exercises(s);
 	while ( s->current_new_exercise < s->n_new ) {
 		exercise e = get_next_exercise(s);
+		level++;
+		mvprintw(6, (COLS / 2) - 5, "Level %4d", level);
+		refresh();
 		train_exercise(e);
 	}
 }
