@@ -34,8 +34,7 @@ void init_terminal() {
   int startx = COLS / 8;
   int height = LINES / 2;
   int width  = (COLS / 8 ) * 6;
-  printw("Lines %d, Cols %d, height %d, width %d, starty %d, startx %d\n",
-		  LINES, COLS, height, width, starty, startx);
+  
   refresh();
   main_win = newwin(height, width, starty, startx);
 
