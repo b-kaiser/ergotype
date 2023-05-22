@@ -47,13 +47,29 @@ void restore_terminal() {
 	endwin();
 }
 
+void reprint_line(line l) {
+	if ( false ) {
+		print_line(l);
+	} else {
+		int x, y;
+		getbegyx(main_win,y,x);
+		wmove(main_win,y+1,x);
+		wclrtoeol(main_win);
+		wrefresh(main_win);	
+	}
+
+}
+
 void print_line(line l) {
 	int x, y;
 	getbegyx(main_win,y,x);
+	wmove(main_win,y+1,x);
+	wclrtoeol(main_win);
+	wmove(main_win,y,x);
 	for (int i = 0; i < l.n_chars; i++) {
-		mvwprintw(main_win,y,x+i, "%c", l.chars[i]);
+		wprintw(main_win, "%c", l.chars[i]);
 	}
-	wprintw(main_win, "\n");
+	wmove(main_win,y+1,x);
 	wrefresh(main_win);
 
 }

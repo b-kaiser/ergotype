@@ -6,6 +6,7 @@
 #include "line.h"
 
 void print_line(line l);
+void reprint_line(line l);
 void print_whitespace();
 
 void print_correct(char d);

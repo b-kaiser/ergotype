@@ -15,9 +15,10 @@
 int check_line(line l) {
 	int n_correct = 0;
 	int n_incorrect = 0;
+	print_line(l);
 	while (n_correct < 3) {
 		int n_mistakes = 0;
-		print_line(l);
+		reprint_line(l);
 	  	for (int i = 0; i < l.n_chars; i++ ) {
 			if (l.chars[i] == ' ') {
 				print_whitespace();
