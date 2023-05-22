@@ -16,7 +16,7 @@ Depends on (n)curses to build. Please open an issue if it doesn't build on your 
 Currently, needs a terminal capable of colors, but that is supposed to be temporary. 
 
 ```
-https://github.com/b-kaiser/ergotype.git
+git clone https://github.com/b-kaiser/ergotype.git
 cd ergotype
 make 
 ./ergotype
