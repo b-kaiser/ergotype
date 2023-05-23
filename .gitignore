@@ -1,3 +1,4 @@
 data/
 ergotype
 *.o
+.use_local_ncurses
