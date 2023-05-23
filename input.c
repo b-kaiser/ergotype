@@ -5,18 +5,32 @@
 
 #include "input.h"
 
+char safe_getch() {
+	while (true) {
+		char d = getch();
+		if (isgraph(d)) {
+			return d;
+		} else if ( d == ' ' ) {
+			return d;
+		} else if ( d == '\033' ) {
+			getch();
+			getch();
+		}
+	}
+}
+
 int obtain_key(char * c) {
 	char d;
 	while (true) {
-		d = getchar();
+		d = safe_getch();
 		if ( d == ' ' ) {
-		  d = getchar();
+		  d = safe_getch();
 		  if ( d == ' ' ) {
-		    d = getchar();
+		    d = safe_getch();
 		    if ( d == ' ' ) {
-		      d = getchar(); 
+		      d = safe_getch(); 
 		      if ( d == ' ' ) {
-		        d = getchar();
+		        d = safe_getch();
 			if ( d == 'n' ) {
 		          printw("Skipping\n");
 			  return 1;
@@ -26,7 +40,6 @@ int obtain_key(char * c) {
 		  }
 	        }
 		if (isgraph(d)) {
-
 			break;
 		}
 	}
