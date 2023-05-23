@@ -11,7 +11,7 @@ A touch typing trainer designed to encourage optimal fingerings.
 - Single hand exercises are useful (not exclusively, of course).
 
 ## Build and Run
-Depends on ncurses to build. Please open an issue if it doesn't build on your os/machine or have suggestions on how to improve the building process. As a last resortand you may use `make LOCAL_NCURSES=true` instead of `make` to automatically download and install ncurses locally to `~/.local` and build ergotype against that.
+Depends on ncurses to build. Please open an issue if it doesn't build on your os/machine or you have suggestions on how to improve the building process. As a last resortand you may use `make LOCAL_NCURSES=true` instead of `make` to automatically download and install ncurses locally to `~/.local` and build ergotype against that.
 
 Currently, needs a terminal capable of colors, but that dependency is soon going to be removed. 
 
