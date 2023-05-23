@@ -12,7 +12,6 @@
 #include "train.h"
 
 #include "output.h"
-#include "introduction.h"
 
 
 static void sig_handler(int _)
