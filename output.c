@@ -38,7 +38,17 @@ void print_intro() {
 "\"Homerows\" are combinations of four consecutive keys on the same row\n"
 "such as the traditional homerows\n"
 "\n"
-"         \"asdf\" (left hand)      and     \"jkl;\" (right hand)\n"
+"         \""
+);
+  wattron(intro_win,COLOR_PAIR(1));
+  wprintw(intro_win, "asdf");
+  wattroff(intro_win,COLOR_PAIR(1));
+  wprintw(intro_win, "\" (left hand)      and     \"");
+  wattron(intro_win,COLOR_PAIR(1));
+  wprintw(intro_win, "jkl;");
+  wattroff(intro_win,COLOR_PAIR(1));
+  wprintw(intro_win, "\" (right hand).\n");
+  wprintw(intro_win,
 "\n"
 "These can easily be typed with the four fingers of one hand.\n");
   wrefresh(intro_win);
@@ -46,38 +56,43 @@ void print_intro() {
   wclear(intro_win);
   wprintw(intro_win,
 "The levels in ergotype are based on homerows and involve a fingering\n"
-"that shall be used to complete the level. In each level required\n"
-"fingering is based on some combination of homerows that shall be\n"
-"used together. The intent is to get familiar with the topology of\n"
-"the keyboard and unfold the ability to press any key comfortably\n"
-"with any finger in any situation.\n"
+"that shall be used to complete the level. In each level, the\n"
+"required fingering is based on some combination of homerows that\n"
+"shall be used together. The intent is to get familiar with the\n"
+"topology of the keyboard and unfold your ability to press any key\n"
+"comfortably with any finger in any situation.\n"
 );
   wrefresh(intro_win);
   getch();
   wclear(intro_win);
   wprintw(intro_win,
 "Optimal fingerings depend on the word and sentence that needs to be\n"
-"written, as well as the keyboard you are using and and personal\n"
+"written, as well as on the keyboard you are using and your personal\n"
 "preferences.\n"
 "\n"
-"The intent of the suggested fingering in the exercises is not to\n"
+"The intent of the suggested fingerings of the levels is ");
+  wattron(intro_win,COLOR_PAIR(2));
+  wprintw(intro_win, "not");
+  wattroff(intro_win,COLOR_PAIR(2));
+  wprintw(intro_win, " to\n"
 "learn an optimal fingering right away. In many cases, the fingering\n"
 "required by the level is far from optimal. Instead, you are going\n"
 "to learn the full spectrum of possible fingerings. In subsequent\n"
-"levels you will not be provided a completely determined fingering and\n"
-"naturally start to vary which finger you use for pressing a key.\n"
+"levels you will not be provided a completely determined fingering.\n"
+"You will naturally start varying the finger you use for pressing a\n"
+"key.\n"
 );
   wrefresh(intro_win);
   getch();
   wclear(intro_win);
   wprintw(intro_win,
 "The approach used in ergotype differs from traditional methods to\n"
-"teach touch typing by expanding the idea of homerows to any\n"
+"teach touch typing. We expand the idea of homerows to any\n"
 "combination of four subsequent keys in a row. Furthermore, ergotype\n"
-"guides you to adjust the fingering dynamically, depending on other\n"
+"guides you to adjust your fingering dynamically, depending on other\n"
 "keys that need to be pressed. Traditionally, only the above\n"
-"mentioned two homerows \"jkl;\" and \"asdf\" are used, as well as\n"
-"a fixed finger for any other key.\n"
+"mentioned two homerows \"jkl;\" and \"asdf\" are used, and \n"
+"similarly, using a fixed finger for any other key is thaught.\n"
 );
   wrefresh(intro_win);
   getch();
@@ -95,12 +110,25 @@ void print_intro() {
   wrefresh(intro_win);
   getch();
   wclear(intro_win);
+  wattron(intro_win,COLOR_PAIR(2));
+  wprintw(intro_win,
+"                  YOU MUST NOT TRY TO TYPE FAST!\n\n"
+);
+  wattroff(intro_win,COLOR_PAIR(2));
+  wprintw(intro_win,
+"Unless you want to endlessly be stuck in lower levels. By the time\n"
+"you reach levels that involve a timelimit, you likely will be typing\n"
+"reasonably fast already.\n"
+);
+  wrefresh(intro_win);
+  getch();
+  wclear(intro_win);
   wprintw(intro_win,
 "A last remark before we start. We aim to treat both hands equally.\n"
 "This leads to exercising pressing some keys with both hands, that in\n"
-"more traditional touch typing system only get pressed by the right\n"
+"more traditional touch typing systems only get pressed by the right\n"
 "hand. For some with prior touch typing experience this may seem\n"
-"unusual. In particular, because we start with these keys right away\n"
+"unusual. In particular, because we start with these keys right away.\n"
 );
 wrefresh(intro_win);
 getch();
