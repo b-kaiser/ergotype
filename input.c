@@ -13,8 +13,29 @@ char safe_getch() {
 		} else if ( d == ' ' ) {
 			return d;
 		} else if ( d == '\033' ) {
-			getch();
-			getch();
+			d = getch();
+			if ( d == '[' ) {
+				// CSI sequences
+				d = getch();
+				while ( '0' <= d && d <= '?' ) {
+					// some/none parameter bytes
+					d = getch();
+				}
+				while ( '!' <= d && d <= '/' ) {
+					// some/none intermediate bytes
+					d = getch();
+				}
+				if  ( '@' <= d && d <= '~' ) {
+					// final byte
+				} else {
+					// something unexpected
+					// TODO: Handle more
+					// appropriately!
+				}
+			} else {
+				// something unexpected
+				// TODO: Handle more appropriately!
+			}
 		}
 	}
 }
