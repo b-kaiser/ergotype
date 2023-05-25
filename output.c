@@ -20,6 +20,96 @@ WINDOW * penalty_win;
 WINDOW * right_fingering_win;
 WINDOW * left_fingering_win;
 
+
+void print_intro() {
+  int starty = LINES / 4;
+  int startx = (COLS / 2) - (72 /2);
+  int height = LINES / 4;
+  int width  = 72;
+ 
+  WINDOW * intro_win = newwin(height, width, starty, startx);
+  curs_set(0);
+  mvwprintw(intro_win, height / 2, width / 6,
+"always press enter (or any other key) to continue");
+  wrefresh(intro_win);
+  getch();
+  wclear(intro_win);
+  wprintw(intro_win,
+"\"Homerows\" are combinations of four consecutive keys on the same row\n"
+"such as the traditional homerows\n"
+"\n"
+"         \"asdf\" (left hand)      and     \"jkl;\" (right hand)\n"
+"\n"
+"These can easily be typed with the four fingers of one hand.\n");
+  wrefresh(intro_win);
+  getch();
+  wclear(intro_win);
+  wprintw(intro_win,
+"The levels in ergotype are based on homerows and involve a fingering\n"
+"that shall be used to complete the level. In each level required\n"
+"fingering is based on some combination of homerows that shall be\n"
+"used together. The intent is to get familiar with the topology of\n"
+"the keyboard and unfold the ability to press any key comfortably\n"
+"with any finger in any situation.\n"
+);
+  wrefresh(intro_win);
+  getch();
+  wclear(intro_win);
+  wprintw(intro_win,
+"Optimal fingerings depend on the word and sentence that needs to be\n"
+"written, as well as the keyboard you are using and and personal\n"
+"preferences.\n"
+"\n"
+"The intent of the suggested fingering in the exercises is not to\n"
+"learn an optimal fingering right away. In many cases, the fingering\n"
+"required by the level is far from optimal. Instead, you are going\n"
+"to learn the full spectrum of possible fingerings. In subsequent\n"
+"levels you will not be provided a completely determined fingering and\n"
+"naturally start to vary which finger you use for pressing a key.\n"
+);
+  wrefresh(intro_win);
+  getch();
+  wclear(intro_win);
+  wprintw(intro_win,
+"The approach used in ergotype differs from traditional methods to\n"
+"teach touch typing by expanding the idea of homerows to any\n"
+"combination of four subsequent keys in a row. Furthermore, ergotype\n"
+"guides you to adjust the fingering dynamically, depending on other\n"
+"keys that need to be pressed. Traditionally, only the above\n"
+"mentioned two homerows \"jkl;\" and \"asdf\" are used, as well as\n"
+"a fixed finger for any other key.\n"
+);
+  wrefresh(intro_win);
+  getch();
+  wclear(intro_win);
+  wprintw(intro_win,
+"We will start with training homerows in the middle of the keyboard,\n"
+"where the set of keys pressed by the left hand overlaps with the set\n"
+"of keys pressed by the right hand. We will start with homerows\n"
+"containing numbers almost right away, but only slowly expand\n"
+"outwards. Special characters are treated as any other key. We will\n"
+"focus on one hand at a time. Levels involving both hands, uppercase\n"
+"letters and dictionary words follow thereafter and focus on applying\n"
+"previously acquired fingerings.\n"
+);
+  wrefresh(intro_win);
+  getch();
+  wclear(intro_win);
+  wprintw(intro_win,
+"A last remark before we start. We aim to treat both hands equally.\n"
+"This leads to exercising pressing some keys with both hands, that in\n"
+"more traditional touch typing system only get pressed by the right\n"
+"hand. For some with prior touch typing experience this may seem\n"
+"unusual. In particular, because we start with these keys right away\n"
+);
+wrefresh(intro_win);
+getch();
+wclear(intro_win);
+curs_set(1);
+wrefresh(intro_win);
+delwin(intro_win);
+}
+
 void init_terminal() {
   initscr();
   cbreak();
@@ -42,7 +132,8 @@ void init_terminal() {
   int width  = COLS / 4;
  
   main_win = newwin(height, width, starty, startx);
-  
+  print_intro();
+
   int penalty_width  = 4;
   int penalty_starty = starty;
   int penalty_startx = startx - penalty_width;
