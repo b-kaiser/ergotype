@@ -1,9 +1,8 @@
 CFLAGS+= -g -Werror -Wall -Wextra
 
 LOCAL_LIBS_PATH = $(shell echo $$HOME)/.local
-
 ifndef LOCAL_NCURSES
-LDFLAGS += -lncurses
+LDLIBSS += -lncurses
 else
 ergotype: .use_local_ncurses
 CFLAGS += -I$(shell echo $$HOME)/.local/include
