@@ -204,6 +204,16 @@ void train(skillset * s) {
 	create_new_exercises(s);
 	while ( s->current_new_exercise < s->n_new ) {
 		exercise e = get_next_exercise(s);
+		if ( (s->n_new > 4) &&
+				(e.n_rows > 1) &&
+				(! is_same_height_exercise(e)) ) {
+			// If there is enough new exercises, and the
+			// exercise is not really essential, then skip
+			// all of them but approximately four.
+			if ( (rand() % s->n_new ) > 4 ) {
+				continue;
+			}
+		}
 		level++;
 		mvprintw(6, (COLS / 2) - 5, "Level %4d", level);
 		refresh();
