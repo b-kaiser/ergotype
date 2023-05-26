@@ -193,7 +193,6 @@ void train_exercise(exercise e) {
 			break;
 		} else {
 			e.use_only_one_row = false; 
-			//printw("Now the same training with mixed words.\n");
 		}
 	}
 
