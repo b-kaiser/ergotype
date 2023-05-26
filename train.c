@@ -27,6 +27,7 @@ int check_line(line l) {
 			}
 			char d;
 			if ( obtain_key(&d) != 0 ) {
+				print_remove_penalty();
 				return 0;
 			}
 			if (d == l.chars[i]) {
@@ -140,6 +141,10 @@ int do_exercise(exercise e) {
 			n_imperfect_lines++;
 			n_perfect_lines = 0;
 		} else {
+			print_remove_following_line(
+					next,
+				       	middle,
+					0);
 			if (n_imperfect_lines == 0) {
 				break;
 			}
